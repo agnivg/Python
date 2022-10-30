@@ -28,7 +28,6 @@ Usage:
 Reference:
     https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/smo-book.pdf
     https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tr-98-14.pdf
-    http://web.cs.iastate.edu/~honavar/smo-svm.pdf
 """
 
 
@@ -43,7 +42,7 @@ from sklearn.datasets import make_blobs, make_circles
 from sklearn.preprocessing import StandardScaler
 
 CANCER_DATASET_URL = (
-    "http://archive.ics.uci.edu/ml/machine-learning-databases/"
+    "https://archive.ics.uci.edu/ml/machine-learning-databases/"
     "breast-cancer-wisconsin/wdbc.data"
 )
 
@@ -322,10 +321,9 @@ class SmoSVM:
         k11 = k(i1, i1)
         k22 = k(i2, i2)
         k12 = k(i1, i2)
-        eta = k11 + k22 - 2.0 * k12
 
         # select the new alpha2 which could get the minimal objectives
-        if eta > 0.0:
+        if (eta := k11 + k22 - 2.0 * k12) > 0.0:
             a2_new_unc = a2 + (y2 * (e1 - e2)) / eta
             # a2_new has a boundary
             if a2_new_unc >= h:
